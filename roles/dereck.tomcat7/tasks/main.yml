@@ -1,0 +1,53 @@
+---
+# Stop all containers running the specified image.
+- name: obsolete container
+  docker:
+    image: mbentley/tomcat7
+    state: stopped
+
+# Stop and remove a container with the specified name.
+- name: obsolete container
+  docker:
+    name: tomcat7
+    image: mbentley/tomcat7
+    state: absent
+
+# remove the image for tomcat7.
+- name: Remove  tomcat7 image
+  docker_image:
+    state: absent
+    name: mbentley/tomcat7
+    tag: latest
+
+# pull the latest tomcat7 image.
+- name: pull tomcat7 image
+  docker_image:
+    name: mbentley/tomcat7
+    tag: latest
+
+
+- name: tomcat7 container
+  docker:
+    name: tomcat7
+    image: mbentley/tomcat7
+    state: present
+    volumes:
+    - /opt/tomcat7/webapps
+
+- name: tomcat7 container
+  docker:
+    name: tomcat7
+    image: mbentley/tomcat7
+    state: reloaded
+    pull: always
+    volumes: 
+    - /opt/tomcat/webapps:/opt/tomcat/webapps
+    ports:
+    - 8080:8080
+    - 8443:8443
+    
+    # sample tomcat test application
+- name: sample tomcat war file
+  get_url:
+    url: https://tomcat.apache.org/tomcat-6.0-doc/appdev/sample/sample.war
+    dest: /opt/tomcat/webapps/sample.war

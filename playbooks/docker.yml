@@ -1,0 +1,7 @@
+---
+- name: Docker Host
+  hosts: tomcat7-container-hosts
+  become: True
+
+  roles:
+      - { role: dereck.docker,              tags: ["docker"] }

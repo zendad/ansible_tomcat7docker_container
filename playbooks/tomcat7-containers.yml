@@ -1,0 +1,8 @@
+---
+
+- name: Tomcat7 Container
+  hosts: tomcat7-container-hosts
+  become: True
+
+  roles:
+      - { role: dereck.tomcat7,              tags: ["tomcat7"] }
